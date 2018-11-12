@@ -17,7 +17,12 @@
                 <label>邮箱</label>
                 <input type="email" name="email" class="form-control" value="{{old('email')}}" >
             </div>
-
+            <div class="form-group">
+                <label>分配角色</label><br/>
+                @foreach($roles as $role)
+                    <input type="checkbox"   name="role[]"  value="{{$role->name}}">{{$role->name}} &nbsp;
+                @endforeach
+            </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label" style="color: #419641;font-size:20px;padding-top: 20px;">添加管理员头像图片：</label>
                 <div class="col-sm-1 " style="width: 300px;!important"  onclick="test          ()">

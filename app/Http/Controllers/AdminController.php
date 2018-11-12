@@ -6,13 +6,14 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
     //管理员列表
     public function index(){
-
-       $admins= Admin::paginate(2);
+       $admins= Admin::paginate(5);
 //       dd($admins);
 //        dd('sss');
         return view('admin.list',compact('admins'));
@@ -20,11 +21,11 @@ class AdminController extends Controller
     }
     //添加管理员
     public function create(){
-        return view('admin.create');
+        $roles=Role::all();
+        $permissions=Permission::all();
+        return view('admin.create',compact('permissions','roles'));
     }
-
     public function store(Request  $request){
-//        dd('4444');
         $this->validate($request,[
             'name'=>'required',
             'email'=>'required',
@@ -32,41 +33,42 @@ class AdminController extends Controller
 //            'img'=>'required|file'
         ]);
         $path=$request->file('img')->store('public/shopcate');
-        Admin::create([
+        $admin=Admin::create([
            'name'=>$request->name,
            'email'=>$request->email,
            'password'=>bcrypt($request->password),
            'img'=>$path,
         ]);
+        $admin->syncRoles($request->role);
         return redirect()->route('login')->with('success','管理员用户添加成功');
 
     }
     //修改管理员
     public function edit(Admin $admin){
-        return view('admin.edit',compact('admin'));
+        $roles=Role::all();
+//        dd($admin);
+//        dd($roles);
+        return view('admin.edit',compact('roles','admin'));
     }
     public function update(Admin $admin,Request $request){
         if(!$request->file()){
             $admin->update([
                 'name'=>$request->name,
                 'email'=>$request->email,
-//                'password'=>$request->password,
             ]);
+            $admin->syncroles($request->role);
         }
         $path=$request->file('img')->store('public/shopcate');
         $this->validate($request ,[
             'name'=>'required',
             'email'=>'required',
-
-//            'password'=>'required',
         ]);
        $admin->update([
            'name'=>$request->name,
            'email'=>$request->email,
            'img'=>$path,
-//           'password'=>$request->password,
-
        ]);
+        $admin->syncRoles($request->role);
        return redirect()->route('admin.index')->with('success','管理员修改成功');
 
     }

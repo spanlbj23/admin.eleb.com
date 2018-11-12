@@ -20,7 +20,7 @@
         {{--<button type="submit" class="btn btn-success">搜索菜品</button>--}}
     {{--</form>--}}
     <table class="table table-bordered table-striped">
-        <h1 style="color: #449d44;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  -------菜品列表-------</h1>
+        <h1 style="color: #449d44;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  -------商铺列表-------</h1>
         <tr>
             <th>ID</th>
             <th>店名</th>

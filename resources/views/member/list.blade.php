@@ -25,8 +25,8 @@
             <th>ID</th>
             <th>收货人</th>
             <th>订单编号</th>
-            <th>状态</th>
             <th>下单时间</th>
+            <th>状态</th>
             <th>操作</th>
         </tr>
         @foreach ($members as $member)

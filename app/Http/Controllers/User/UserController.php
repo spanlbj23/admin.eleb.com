@@ -20,7 +20,7 @@ class UserController extends Controller
     //列表
     public function index(){
 //            $shops=Shop::all();
-            $users=User::where('status','=',1)->paginate(3);
+            $users=User::where('status','=',0)->paginate(3);
 //            dd($users);
             return view('user.list',compact('users','shops'));
     }
@@ -32,13 +32,13 @@ class UserController extends Controller
         return view('user.create',compact('shopcate'));
     }
     public function store(Request $request) {
+//        dd($request->all());
         $this->validate($request,[
             'name'=>'required',
             'password'=>'required',
             'email'=>'required',
             'shop_name'=>'required',
             'shop_img'=>'required|file'
-
         ],
         [
             'name.required'=>'用户名不合法',

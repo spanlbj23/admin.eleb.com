@@ -21,6 +21,7 @@ class AuditController extends Controller
 //            dd('fwfvw'),
             'status'=>1,
         ]);
+
         return back()->with('success','审核通过');
     }
     //禁用
@@ -28,7 +29,13 @@ class AuditController extends Controller
         $user->update([
             'status'=>-1,
         ]);
-        return "该账号已被禁用";
+        return back()->with('success','该账号已别禁用');
+    }
+//发送邮件的方法
+    public function mail($name,$mail,$title,$content){
+        \Illuminate\Support\Facades\Mail::send('mail',['name'=>$name,'content'=>$content],function($message)use($mail,$title){
+            $message->to($mail)->subject($title);
+        });
     }
 
 }
